@@ -62,8 +62,8 @@ Podemos considerar este projeto como sendo divido em duas partes:
 Além disto é bom ter um editor para trabalhar com o código como [VSCode][vscode].
 Como o projeto foi feito com expo, você precisa baixar o aplicativo EXPO na sua loja oficial:<p>
 
-<a href="https://play.google.com/store/apps/details?id=host.exp.exponent&hl=pt_BR">• Play Store</a><br/>
-<a href="https://apps.apple.com/br/app/expo-client/id982107779">• App Store</a>
+•<a href="https://play.google.com/store/apps/details?id=host.exp.exponent&hl=pt_BR"> Play Store</a><br/>
+•<a href="https://apps.apple.com/br/app/expo-client/id982107779"> App Store</a>
 
 <h3 id="como-executar-backend">🎲 Rodando o Back End (servidor)</h3>
 
