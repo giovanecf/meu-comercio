@@ -1,2 +1,6 @@
-/server
+/mobile/node_modules
+/mobile/yarn-error.log
+/server/node_modules
+/server/uploads
+/server/yarn-error.log
 
