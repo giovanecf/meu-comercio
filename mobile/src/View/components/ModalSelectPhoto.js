@@ -17,7 +17,7 @@ function ModalSelectPhoto(props) {
         <Card>
           <View style={styles.container}>
             <View style={styles.titleTextView}>
-              <Text style={styles.titleText}>Alterar foto</Text>
+              <Text style={styles.titleText}>Selecionar foto</Text>
             </View>
             <View style={styles.optionsTextView}>
               <TouchableOpacity onPress={props.onShotSelect}>
@@ -59,7 +59,8 @@ const styles = StyleSheet.create({
   },
   cancelTextView: {
     paddingTop: 12,
-    margin: 6,
+    marginHorizontal: 24,
+    marginVertical: 6,
     alignItems: "flex-end",
   },
   titleText: {

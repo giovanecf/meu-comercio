@@ -184,9 +184,10 @@ class NewProduct extends Component {
                 />
                 <View style={styles.textInputContainer}>
                   <FloatingLabelInput
+                    containerStyles={styles.textInput}
                     multiline={true}
                     textAlignVertical="top"
-                    inputStyles={styles.textInput}
+                    inputStyles={{ paddingTop: 5 }}
                     label="Descrição"
                     value={this.props.values.description}
                     onChangeText={(text) =>
@@ -213,6 +214,7 @@ class NewProduct extends Component {
                 />
                 <View style={styles.textInputContainer}>
                   <FloatingLabelInput
+                    containerStyles={styles.textInput}
                     label="Preço de custo (R$)"
                     keyboardType="decimal-pad"
                     value={this.props.values.costPrice}
@@ -238,6 +240,7 @@ class NewProduct extends Component {
                 />
                 <View style={styles.textInputContainer}>
                   <FloatingLabelInput
+                    containerStyles={styles.textInput}
                     label="Preço de venda (R$)"
                     keyboardType="decimal-pad"
                     value={this.props.values.sellPrice}
@@ -265,6 +268,7 @@ class NewProduct extends Component {
                 />
                 <View style={styles.textInputContainer}>
                   <FloatingLabelInput
+                    containerStyles={styles.textInput}
                     label="Estoque (un.)"
                     keyboardType="number-pad"
                     value={this.props.values.stock}
@@ -291,6 +295,7 @@ class NewProduct extends Component {
                 />
                 <View style={styles.textInputContainer}>
                   <FloatingLabelInput
+                    containerStyles={styles.textInput}
                     label="Desconto (R$)"
                     keyboardType="decimal-pad"
                     value={this.props.values.discount}
@@ -384,7 +389,12 @@ const styles = StyleSheet.create({
   },
 
   textInput: {
-    paddingTop: 5,
+    height: 50,
+    borderRadius: 5,
+    borderWidth: 0.5,
+    borderColor: "rgba(0,0,0,0.2)",
+    paddingLeft: 10,
+    backgroundColor: Colors.background,
   },
 });
 
@@ -502,6 +512,6 @@ export default withFormik({
       }
     }
 
-    props.navigation.navigate("TabBottomRoutes", { screen: "Client" });
+    props.navigation.navigate("TabBottomRoutes", { screen: "Product" });
   },
 })(NewProduct);

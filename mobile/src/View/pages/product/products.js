@@ -83,6 +83,7 @@ export default class Product extends Component {
         <BodyContainer>
           {this.state.productTypes.length > 0 ? (
             <FlatList
+              keyboardShouldPersistTaps={"handled"}
               contentContainerStyle={styles.list}
               data={this.state.productTypes}
               keyExtractor={(item) => String(item.id)}

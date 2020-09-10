@@ -1,10 +1,6 @@
 import React, { Component } from "react";
 
-import { View, Button, StyleSheet, Image } from "react-native";
-
-import Modal from "react-native-modal";
-
-import UserController from "../../../Controller/UserController";
+import { View, Button, StyleSheet, Image, AsyncStorage } from "react-native";
 
 import Header from "../../components/Header";
 import FloatingButton from "../../components/FloatingButton";
@@ -18,22 +14,6 @@ export default class Sales extends Component {
     isModalVisible: true,
   };
 
-  findAllUsers = () => {
-    UserController.findAll().then((response) => {
-      console.log("ARRAY: ");
-      console.log(response._array);
-      console.log(response._array.length);
-    }),
-      (error) => {
-        Alert.alert("Erro!", error, [
-          {
-            text: "Ok",
-            style: "destructive",
-          },
-        ]);
-      };
-  };
-
   componentDidMount() {
     setTimeout(() => {
       this.setState({ isModalVisible: false });
@@ -44,7 +24,7 @@ export default class Sales extends Component {
     return (
       <RootContainer>
         <HeaderContainer>
-          <Header title="Meu Comércio" />
+          <Header title="Meu Comércio" navigation={this.props.navigation} />
         </HeaderContainer>
         <BodyContainer>
           <View style={styles.heroImageView}>

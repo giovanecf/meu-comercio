@@ -18,6 +18,7 @@ import { withFormik } from "formik";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import FloatingLabelInput from "react-native-floating-label-input";
 
+import ClientApi from "../../../Controller/services/ClientApi";
 import ClientController from "../../../Controller/ClientController";
 import Client from "../../../model/Client";
 
@@ -195,6 +196,7 @@ class NewClient extends Component {
 
                 <View style={styles.textInputContainer}>
                   <FloatingLabelInput
+                    containerStyles={styles.textInput}
                     label="CPF"
                     keyboardType="number-pad"
                     value={this.props.values.cpf}
@@ -227,6 +229,7 @@ class NewClient extends Component {
                 />
                 <View style={styles.textInputContainer}>
                   <FloatingLabelInput
+                    containerStyles={styles.textInput}
                     autoCapitalize="words"
                     label="Nome"
                     value={this.props.values.name}
@@ -235,7 +238,7 @@ class NewClient extends Component {
                     }
                     multiline={true}
                     textAlignVertical="top"
-                    inputStyles={styles.textInput}
+                    inputStyles={{ paddingTop: 5 }}
                     onBlur={() => this.props.setFieldTouched("name")}
                   />
                   {this.props.touched.name && this.props.errors.name && (
@@ -256,6 +259,7 @@ class NewClient extends Component {
                 />
                 <View style={styles.textInputContainer}>
                   <FloatingLabelInput
+                    containerStyles={styles.textInput}
                     label="Telefone"
                     keyboardType="number-pad"
                     value={this.props.values.phone}
@@ -282,6 +286,7 @@ class NewClient extends Component {
                 />
                 <View style={styles.textInputContainer}>
                   <FloatingLabelInput
+                    containerStyles={styles.textInput}
                     autoCapitalize="words"
                     label="Logradouro"
                     value={this.props.values.street}
@@ -290,7 +295,7 @@ class NewClient extends Component {
                     }
                     multiline={true}
                     textAlignVertical="top"
-                    inputStyles={styles.textInput}
+                    inputStyles={{ paddingTop: 5 }}
                     onBlur={() => this.props.setFieldTouched("street")}
                   />
                 </View>
@@ -303,6 +308,7 @@ class NewClient extends Component {
                 />
                 <View style={styles.textInputContainer}>
                   <FloatingLabelInput
+                    containerStyles={styles.textInput}
                     autoCapitalize="words"
                     label="Bairro"
                     value={this.props.values.district}
@@ -321,6 +327,7 @@ class NewClient extends Component {
                 />
                 <View style={styles.textInputContainer}>
                   <FloatingLabelInput
+                    containerStyles={styles.textInput}
                     autoCapitalize="words"
                     label="Cidade"
                     value={this.props.values.city}
@@ -413,7 +420,12 @@ const styles = StyleSheet.create({
     marginHorizontal: 12,
   },
   textInput: {
-    paddingTop: 5,
+    height: 50,
+    borderRadius: 5,
+    borderWidth: 0.5,
+    borderColor: "rgba(0,0,0,0.2)",
+    paddingLeft: 10,
+    backgroundColor: Colors.background,
   },
 });
 
@@ -455,49 +467,29 @@ export default withFormik({
   }),
 
   handleSubmit: (values, { props }) => {
-    let file = new Client();
-    file.cpf = values.cpf;
-    file.name = values.name;
-    file.phone = values.phone;
-    file.thumbnail = values.thumbnail || "ICON";
+    let clientApi = new ClientApi();
+
+    let obj = new Client();
+    obj.id = "";
+    obj.cpf = values.cpf;
+    obj.name = values.name;
+    obj.phone = values.phone;
+    obj.thumbnail = values.thumbnail || "ICON";
 
     //Dealing with iteration of the address
     const street = values.street !== "" ? values.street + "|" : "";
     const district = values.district !== "" ? values.district + "|" : "";
     const city = values.city !== "" ? values.city : "";
 
-    file.address = `${street}${district}${city}`;
+    obj.address = `${street}${district}${city}`;
 
     //GLOBALID USER. I know, it's not a good pratice at all, but....
-    file.user_id = 100;
+    obj.user_id = 100;
 
-    let insertId = "";
-    let errorMsg = "";
+    clientApi.setData(obj, (data) => console.log("DATA ADDED \n" + data));
 
-    if (props.route.params) {
-      file.id = props.route.params.item.id;
-      insertId = ClientController.updateById(file);
-      errorMsg =
-        "Não foi possivel editar o cliente... :/ Por favor, tente reiniciar o aplicativo.";
-    } else {
-      insertId = ClientController.addData(file);
-      errorMsg =
-        "Não foi possivel incluir um novo cliente... :/ Por favor, tente reiniciar o aplicativo.";
-    }
-
-    if (insertId == null || insertId == undefined) {
-      Alert.alert("Erro!", errorMsg, [
-        {
-          text: "Ok",
-          style: "destructive",
-        },
-      ]);
-    } else {
-      console.log("ID");
-      //console.log(insertId);
-      setTimeout(() => {
-        props.navigation.navigate("TabBottomRoutes", { screen: "Client" });
-      }, 250);
-    }
+    setTimeout(() => {
+      props.navigation.navigate("TabBottomRoutes", { screen: "Client" });
+    }, 250);
   },
 })(NewClient);
